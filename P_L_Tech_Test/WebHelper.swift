@@ -21,7 +21,9 @@ let CONTENT_LIST_JSON = "contentList.json"
 // http://dynamic.pulselive.com/test/native/content/[id].json
 let DETAIL_ENDPOINT = "content/[id].json"
 class WebHelper {
-	
+	func detailEndpoint(forID id: Double)-> String {
+		return "content/\(id).json"
+	}
 	func getContentList(completion: @escaping((Result<[Item]>) -> ())) {
 		
 		let urlString =  PULSE_LIVE_BASE_ENDPOINT + CONTENT_LIST_JSON
@@ -54,9 +56,10 @@ class WebHelper {
 			
 			}.resume()
 	}
-	func getItemDetails(forID: Double, completion: @escaping((Result<Item>) -> ())) {
+	func getItemDetails(forID id: Double, completion: @escaping((Result<Item>) -> ())) {
 		
-		let urlString =  PULSE_LIVE_BASE_ENDPOINT + CONTENT_LIST_JSON
+		let urlString =  PULSE_LIVE_BASE_ENDPOINT + detailEndpoint(forID: id)
+		print(urlString)
 		guard let url = URL(string: urlString) else { return }
 		
 		URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -69,11 +72,12 @@ class WebHelper {
 			
 			do {
 				
-				let item = try JSONDecoder().decode(Item.self, from: data)
-				//if let item = itemsDict["item"] {
-
+				let itemDict = try JSONDecoder().decode([String : Item].self, from: data)
+//				print(itemsDict)
+				if let item = itemDict["item"] {
+//
 					completion(.success(item))
-			//	}
+				}
 				
 			} catch let jsonError {
 				print(jsonError)
