@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		961B3D3920CEDAB500103EB2 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961B3D3720CEDAB500103EB2 /* ItemTableViewCell.swift */; };
 		961B3D3A20CEDAB500103EB2 /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961B3D3820CEDAB500103EB2 /* ItemTableViewCell.xib */; };
+		961B3D3C20CEDE7600103EB2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961B3D3B20CEDE7600103EB2 /* DetailViewController.swift */; };
 		96AE277620CEC47F00345FD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AE277520CEC47F00345FD9 /* AppDelegate.swift */; };
 		96AE277820CEC47F00345FD9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AE277720CEC47F00345FD9 /* ViewController.swift */; };
 		96AE277B20CEC47F00345FD9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96AE277920CEC47F00345FD9 /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		961B3D3720CEDAB500103EB2 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		961B3D3820CEDAB500103EB2 /* ItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemTableViewCell.xib; sourceTree = "<group>"; };
+		961B3D3B20CEDE7600103EB2 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		96AE277220CEC47F00345FD9 /* P_L_Tech_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = P_L_Tech_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96AE277520CEC47F00345FD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96AE277720CEC47F00345FD9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				96AE277520CEC47F00345FD9 /* AppDelegate.swift */,
 				96AE277720CEC47F00345FD9 /* ViewController.swift */,
 				96AE278720CEC5B300345FD9 /* Item.swift */,
+				961B3D3B20CEDE7600103EB2 /* DetailViewController.swift */,
 				96AE278920CEC69300345FD9 /* WebHelper.swift */,
 				96AE277920CEC47F00345FD9 /* Main.storyboard */,
 				961B3D3720CEDAB500103EB2 /* ItemTableViewCell.swift */,
@@ -151,6 +154,7 @@
 				96AE278A20CEC69300345FD9 /* WebHelper.swift in Sources */,
 				96AE277820CEC47F00345FD9 /* ViewController.swift in Sources */,
 				961B3D3920CEDAB500103EB2 /* ItemTableViewCell.swift in Sources */,
+				961B3D3C20CEDE7600103EB2 /* DetailViewController.swift in Sources */,
 				96AE278820CEC5B300345FD9 /* Item.swift in Sources */,
 				96AE277620CEC47F00345FD9 /* AppDelegate.swift in Sources */,
 			);

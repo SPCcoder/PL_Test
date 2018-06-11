@@ -66,6 +66,19 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 		cell.itemIdLabel.text = "\(self.items[indexPath.row].id)"
 		return cell
 	}
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		performSegue(withIdentifier: "showDetail", sender: indexPath)
+	}
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "showDetail" {
+			guard let detailVC = segue.destination as? DetailViewController else { return}
+			if let index = sender as? IndexPath {
+				print(index)
+			detailVC.item = self.items[index.row]
+				//self.navigationController?.pushViewController(detailVC, animated: true)
+			}
+		}
+	}
 }
 
 
