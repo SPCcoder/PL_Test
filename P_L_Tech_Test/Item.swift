@@ -8,7 +8,7 @@
 
 import Foundation
 struct Item: Decodable {
-	var id: Double
+	var id: Int
 	var title: String
 	var subtitle: String
 	var date: String

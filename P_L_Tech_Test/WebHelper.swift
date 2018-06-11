@@ -21,7 +21,7 @@ let CONTENT_LIST_JSON = "contentList.json"
 // http://dynamic.pulselive.com/test/native/content/[id].json
 let DETAIL_ENDPOINT = "content/[id].json"
 class WebHelper {
-	func detailEndpoint(forID id: Double)-> String {
+	func detailEndpoint(forID id: Int)-> String {
 		return "content/\(id).json"
 	}
 	func getContentList(completion: @escaping((Result<[Item]>) -> ())) {
@@ -56,7 +56,7 @@ class WebHelper {
 			
 			}.resume()
 	}
-	func getItemDetails(forID id: Double, completion: @escaping((Result<Item>) -> ())) {
+	func getItemDetails(forID id: Int, completion: @escaping((Result<Item>) -> ())) {
 		
 		let urlString =  PULSE_LIVE_BASE_ENDPOINT + detailEndpoint(forID: id)
 		print(urlString)

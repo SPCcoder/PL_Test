@@ -90,7 +90,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 		if segue.identifier == "showDetail" {
 			guard let detailVC = segue.destination as? DetailViewController else { return}
 			if let sentItem = sender as? Item {
-				print(index)
+				print(sentItem)
 			detailVC.item = sentItem
 				//self.navigationController?.pushViewController(detailVC, animated: true)
 			}
