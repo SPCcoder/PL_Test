@@ -67,14 +67,31 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 		return cell
 	}
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		performSegue(withIdentifier: "showDetail", sender: indexPath)
+		// call for details
+		let webHelper = WebHelper()
+		let selectedItem = self.items[indexPath.row]
+		webHelper.getItemDetails(forID: selectedItem.id) { (result) in
+			switch result {
+			case let .success(item):
+				DispatchQueue.main.async {
+					self.performSegue(withIdentifier: "showDetail", sender: item)
+					
+				}
+			case let .error(error):
+				print(error)
+				
+				//TODO: show alert to tell user we can not get data
+			}
+
+		}
+		
 	}
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "showDetail" {
 			guard let detailVC = segue.destination as? DetailViewController else { return}
-			if let index = sender as? IndexPath {
+			if let sentItem = sender as? Item {
 				print(index)
-			detailVC.item = self.items[index.row]
+			detailVC.item = sentItem
 				//self.navigationController?.pushViewController(detailVC, animated: true)
 			}
 		}

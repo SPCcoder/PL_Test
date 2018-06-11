@@ -12,5 +12,6 @@ struct Item: Decodable {
 	var title: String
 	var subtitle: String
 	var date: String
+	var body: String?
 }
 

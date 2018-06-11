@@ -46,8 +46,34 @@ class WebHelper {
 					print(myItem)
 					completion(.success(itemsArray))
 				}
+	
+			} catch let jsonError {
+				print(jsonError)
+				completion(.error(jsonError))
+			}
+			
+			}.resume()
+	}
+	func getItemDetails(forID: Double, completion: @escaping((Result<Item>) -> ())) {
+		
+		let urlString =  PULSE_LIVE_BASE_ENDPOINT + CONTENT_LIST_JSON
+		guard let url = URL(string: urlString) else { return }
+		
+		URLSession.shared.dataTask(with: url) { (data, response, error) in
+			if error != nil {
+				print(error!.localizedDescription)
+				completion(.error(error!))
+			}
+			
+			guard let data = data else { return }
+			
+			do {
 				
-				
+				let item = try JSONDecoder().decode(Item.self, from: data)
+				//if let item = itemsDict["item"] {
+
+					completion(.success(item))
+			//	}
 				
 			} catch let jsonError {
 				print(jsonError)
@@ -56,5 +82,4 @@ class WebHelper {
 			
 			}.resume()
 	}
-	
 }

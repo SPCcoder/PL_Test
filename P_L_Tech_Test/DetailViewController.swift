@@ -11,6 +11,8 @@ import UIKit
 class DetailViewController: UIViewController {
 	var item: Item?
 	@IBOutlet weak var itemTitleLabel: UILabel!
+	@IBOutlet weak var subTitleTextView: UITextView!
+	@IBOutlet weak var bodyTextView: UITextView!
 	override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,7 +21,11 @@ class DetailViewController: UIViewController {
     }
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		itemTitleLabel.text = item?.title
+		if let item = self.item {
+		itemTitleLabel.text = item.title
+		subTitleTextView.text = item.subtitle
+		bodyTextView.text = item.body ?? ""
+		}
 	}
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
