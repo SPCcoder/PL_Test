@@ -11,6 +11,9 @@ import UIKit
 class ItemTableViewCell: UITableViewCell {
 
 	@IBOutlet weak var itemIdLabel: UILabel!
+	@IBOutlet weak var titleLabel: UILabel!
+	@IBOutlet weak var subTitleLabel: UILabel!
+	@IBOutlet weak var dateLabel: UILabel!
 	override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

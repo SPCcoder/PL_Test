@@ -62,24 +62,49 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell") as? ItemTableViewCell else { return UITableViewCell()}
-		
-		cell.itemIdLabel.text = "\(self.items[indexPath.row].id)"
+		let item = self.items[indexPath.row]
+		cell.itemIdLabel.text = "\(item.id)"
+		cell.titleLabel.text = item.title
+		cell.subTitleLabel.text = item.subtitle
+		cell.dateLabel.text = item.date
 		return cell
+	}
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return 127.0
+	}
+	func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+		return 127.0
 	}
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		// call for details
 		let webHelper = WebHelper()
 		let selectedItem = self.items[indexPath.row]
+		// update/block UI
+		let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+		activityIndicator.hidesWhenStopped = true
+		activityIndicator.color = UIColor.red
+		
+		activityIndicator.frame = CGRect(x: self.view.frame.width/2, y: self.view.frame.height/2, width: 80, height: 80)
+		activityIndicator.backgroundColor = UIColor.yellow
+		self.view.addSubview(activityIndicator)
+		self.view.bringSubview(toFront: activityIndicator)
+		activityIndicator.startAnimating()
+
 		webHelper.getItemDetails(forID: selectedItem.id) { (result) in
+			DispatchQueue.main.async {
+			//	activityIndicator.stopAnimating()
+
+			}
 			switch result {
+
 			case let .success(item):
 				DispatchQueue.main.async {
 					self.performSegue(withIdentifier: "showDetail", sender: item)
-					
+
 				}
 			case let .error(error):
 				print(error)
-				
+
 				//TODO: show alert to tell user we can not get data
 			}
 

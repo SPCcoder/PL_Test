@@ -13,6 +13,8 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var itemTitleLabel: UILabel!
 	@IBOutlet weak var subTitleTextView: UITextView!
 	@IBOutlet weak var bodyTextView: UITextView!
+	@IBOutlet weak var idLabel: UILabel!
+	@IBOutlet weak var dateLabel: UILabel!
 	override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,9 +24,11 @@ class DetailViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		if let item = self.item {
-		itemTitleLabel.text = item.title
-		subTitleTextView.text = item.subtitle
-		bodyTextView.text = item.body ?? ""
+			itemTitleLabel.text = item.title
+			subTitleTextView.text = item.subtitle
+			idLabel.text = "\(item.id)"
+			dateLabel.text = item.date
+			bodyTextView.text = item.body ?? ""
 		}
 	}
     override func didReceiveMemoryWarning() {
