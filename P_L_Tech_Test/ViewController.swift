@@ -38,12 +38,9 @@ class ViewController: UIViewController {
 				switch result {
 				case let .success(items):
 					self.items = items
-					
 					self.itemsTableView.reloadData()
 					
 				case let .error(error):
-					print(error)
-					
 					//TODO: show alert to tell user we can not get data
 					let alertView = UIAlertController(title: Constants.ERROR_TITLE, message: Constants.CANNOT_GET_ARTICLE_LIST, preferredStyle: .alert)
 					alertView.show(self, sender: self)
