@@ -7,23 +7,23 @@
 //
 
 import UIKit
-//Content List Endpoint:
-// http://dynamic.pulselive.com/test/native/contentList.json
 
-//Content Detail Endpoint (​[id] should be replaced with item id):
-// http://dynamic.pulselive.com/test/native/content/[id].json
 class ViewController: UIViewController {
+	
 	var items: [Item] = []
 	
 	@IBOutlet weak var itemsTableView: UITableView!
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		configureTableview()
 	}
+	
 	private func configureTableview() {
-		register(cellNibs: ["ItemTableViewCell"], cellIds:["itemCell"], for: self.itemsTableView)
+		register(cellNibs: [Constants.ITEM_TABLEVIEW_CELL], cellIds:[Constants.ITEM_CELL_ID], for: self.itemsTableView)
 	}
+	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		let webHelper = WebHelper()
@@ -43,9 +43,9 @@ class ViewController: UIViewController {
 			
 		}
 	}
+	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
 	}
 	
 	/// Register Tableview Cells
@@ -54,15 +54,18 @@ class ViewController: UIViewController {
 		zip(cellNibs, cellIds).forEach { tableView.register(UINib(nibName: $0, bundle: nil), forCellReuseIdentifier: $1) }
 	}
 }
+
+// MARK: - TableView Extension
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
+	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return self.items.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell") as? ItemTableViewCell else { return UITableViewCell()}
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ITEM_CELL_ID) as? ItemTableViewCell else { return UITableViewCell()}
 		let item = self.items[indexPath.row]
-		cell.itemIdLabel.text = "\(item.id)"
+		cell.itemIdLabel.text = "Article ID: \(item.id)"
 		cell.titleLabel.text = item.title
 		cell.subTitleLabel.text = item.subtitle
 		cell.dateLabel.text = item.date
@@ -88,39 +91,46 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 		activityIndicator.center = view.center
 		self.view.addSubview(activityIndicator)
 		activityIndicator.startAnimating()
-
+		
 		webHelper.getItemDetails(forID: selectedItem.id) { (result) in
 			DispatchQueue.main.async {
 				activityIndicator.stopAnimating()
-
+				
 			}
 			switch result {
-
+				
 			case let .success(item):
 				DispatchQueue.main.async {
-					self.performSegue(withIdentifier: "showDetail", sender: item)
-
+					self.performSegue(withIdentifier: Constants.DETAIL_VC_SEGUE_IDENTIFIER, sender: item)
+					
 				}
 			case let .error(error):
 				print(error)
-
+				
 				//TODO: show alert to tell user we can not get data
 			}
-
+			
 		}
 		
 	}
-
+	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if segue.identifier == "showDetail" {
+		if segue.identifier == Constants.DETAIL_VC_SEGUE_IDENTIFIER {
 			guard let detailVC = segue.destination as? DetailViewController else { return}
 			if let sentItem = sender as? Item {
 				print(sentItem)
-			detailVC.item = sentItem
+				detailVC.item = sentItem
 				
 			}
 		}
 	}
 }
 
+// MARK: -
+private struct Constants {
+	static let ITEM_TABLEVIEW_CELL = "ItemTableViewCell"
+	static let ITEM_CELL_ID = "itemCell"
+	static let DETAIL_VC_SEGUE_IDENTIFIER = "showDetail"
+	
+}
 

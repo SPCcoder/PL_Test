@@ -46,7 +46,7 @@ class WebHelper {
 					print(myItem)
 					completion(.success(itemsArray))
 				}
-	
+				
 			} catch let jsonError {
 				print(jsonError)
 				completion(.error(jsonError))
@@ -63,7 +63,7 @@ class WebHelper {
 	func getItemDetails(forID id: Int, completion: @escaping((Result<Item>) -> ())) {
 		
 		let urlString =  Constants.PULSE_LIVE_BASE_ENDPOINT + detailEndpoint(forID: id)
-
+		
 		guard let url = URL(string: urlString) else { return }
 		
 		URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -77,7 +77,7 @@ class WebHelper {
 			do {
 				
 				let itemDict = try JSONDecoder().decode([String : Item].self, from: data)
-
+				
 				if let item = itemDict["item"] {
 					completion(.success(item))
 				}
@@ -91,7 +91,8 @@ class WebHelper {
 	}
 }
 
-fileprivate struct Constants {
+// MARK: -
+private struct Constants {
 	// Base
 	static let PULSE_LIVE_BASE_ENDPOINT =  "http://dynamic.pulselive.com/test/native/"
 	//Content List Endpoint:

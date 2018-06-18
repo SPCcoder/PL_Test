@@ -9,7 +9,7 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
+	
 	@IBOutlet weak var itemTitleLabel: UILabel!
 	@IBOutlet weak var subTitleTextView: UITextView!
 	@IBOutlet weak var bodyTextView: UITextView!
@@ -19,23 +19,23 @@ class DetailViewController: UIViewController {
 	var item: Item?
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+		super.viewDidLoad()
 		
-    }
+		// Do any additional setup after loading the view.
+		
+	}
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		if let item = self.item {
 			itemTitleLabel.text = item.title
 			subTitleTextView.text = item.subtitle
-			idLabel.text = "\(item.id)"
+			idLabel.text = "Article ID: \(item.id)"
 			dateLabel.text = item.date
 			bodyTextView.text = item.body ?? ""
 		}
 	}
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+	}
+	
 }
