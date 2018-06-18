@@ -82,17 +82,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 		// update/block UI
 		let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 		activityIndicator.hidesWhenStopped = true
-		activityIndicator.color = UIColor.red
-		
-		activityIndicator.frame = CGRect(x: self.view.frame.width/2, y: self.view.frame.height/2, width: 80, height: 80)
-		activityIndicator.backgroundColor = UIColor.yellow
+		activityIndicator.transform = CGAffineTransform(scaleX: 2, y: 2);
+		activityIndicator.center = view.center
 		self.view.addSubview(activityIndicator)
-		self.view.bringSubview(toFront: activityIndicator)
 		activityIndicator.startAnimating()
 
 		webHelper.getItemDetails(forID: selectedItem.id) { (result) in
 			DispatchQueue.main.async {
-			//	activityIndicator.stopAnimating()
+				activityIndicator.stopAnimating()
 
 			}
 			switch result {
@@ -109,6 +106,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 			}
 
 		}
+		
+	}
+	func animateViewForLoading() {
 		
 	}
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
