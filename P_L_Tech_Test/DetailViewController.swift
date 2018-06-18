@@ -17,19 +17,18 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var dateLabel: UILabel!
 	
 	var item: Item?
+	
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		// Do any additional setup after loading the view.
-		
 	}
+	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		if let item = self.item {
 			itemTitleLabel.text = item.title
 			subTitleTextView.text = item.subtitle
-			idLabel.text = "Article ID: \(item.id)"
+			idLabel.text = "\(Constants.ARTICLE_ID_LABLE) \(item.id)"
 			dateLabel.text = item.date
 			bodyTextView.text = item.body ?? ""
 		}
@@ -38,4 +37,9 @@ class DetailViewController: UIViewController {
 		super.didReceiveMemoryWarning()
 	}
 	
+}
+
+// MARK: -
+private struct Constants {
+	static let ARTICLE_ID_LABLE = "Article ID:"
 }

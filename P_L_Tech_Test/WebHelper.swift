@@ -14,7 +14,7 @@ enum Result<T> {
 }
 
 class WebHelper {
-	
+	//TODO: There's no check for if device has internet connection
 	func detailEndpoint(forID id: Int)-> String {
 		return "content/\(id).json"
 	}
@@ -38,17 +38,14 @@ class WebHelper {
 			do {
 				
 				let itemsDict = try JSONDecoder().decode([String : [Item]].self, from: data)
-				print(itemsDict)
+
 				if let itemsArray = itemsDict["items"] {
-					print(itemsArray)
-					print(itemsArray[0])
-					let myItem = itemsArray[0]
-					print(myItem)
+
 					completion(.success(itemsArray))
 				}
 				
 			} catch let jsonError {
-				print(jsonError)
+				
 				completion(.error(jsonError))
 			}
 			
