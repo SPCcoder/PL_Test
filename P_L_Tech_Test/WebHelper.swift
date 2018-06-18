@@ -7,26 +7,24 @@
 //
 
 import Foundation
-import UIKit
+
 enum Result<T> {
 	case success(T)
 	case error(Error)
 }
 
-//Content List Endpoint:
-// http://dynamic.pulselive.com/test/native/contentList.json
-let PULSE_LIVE_BASE_ENDPOINT =  "http://dynamic.pulselive.com/test/native/"
-let CONTENT_LIST_JSON = "contentList.json"
-//Content Detail Endpoint (​[id] should be replaced with item id):
-// http://dynamic.pulselive.com/test/native/content/[id].json
-let DETAIL_ENDPOINT = "content/[id].json"
 class WebHelper {
+	
 	func detailEndpoint(forID id: Int)-> String {
 		return "content/\(id).json"
 	}
+	
+	/// Gets an aaray of 'Item' objects. Func writen to support iOS 8
+	///
+	/// - Parameter completion: Item array or Error
 	func getContentList(completion: @escaping((Result<[Item]>) -> ())) {
 		
-		let urlString =  PULSE_LIVE_BASE_ENDPOINT + CONTENT_LIST_JSON
+		let urlString =  Constants.PULSE_LIVE_BASE_ENDPOINT + Constants.CONTENT_LIST_JSON
 		guard let url = URL(string: urlString) else { return }
 		
 		URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -56,10 +54,16 @@ class WebHelper {
 			
 			}.resume()
 	}
+	
+	/// Gets all the detail for a specific Item. Func writen to support iOS 8
+	///
+	/// - Parameters:
+	///   - id: The Item's id
+	///   - completion: An Item object or an Error
 	func getItemDetails(forID id: Int, completion: @escaping((Result<Item>) -> ())) {
 		
-		let urlString =  PULSE_LIVE_BASE_ENDPOINT + detailEndpoint(forID: id)
-		print(urlString)
+		let urlString =  Constants.PULSE_LIVE_BASE_ENDPOINT + detailEndpoint(forID: id)
+
 		guard let url = URL(string: urlString) else { return }
 		
 		URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -73,9 +77,8 @@ class WebHelper {
 			do {
 				
 				let itemDict = try JSONDecoder().decode([String : Item].self, from: data)
-//				print(itemsDict)
+
 				if let item = itemDict["item"] {
-//
 					completion(.success(item))
 				}
 				
@@ -86,4 +89,13 @@ class WebHelper {
 			
 			}.resume()
 	}
+}
+
+fileprivate struct Constants {
+	// Base
+	static let PULSE_LIVE_BASE_ENDPOINT =  "http://dynamic.pulselive.com/test/native/"
+	//Content List Endpoint:
+	static let CONTENT_LIST_JSON = "contentList.json"
+	//Content Detail Endpoint (​[id] should be replaced with item id):
+	static let DETAIL_ENDPOINT = "content/[id].json"
 }

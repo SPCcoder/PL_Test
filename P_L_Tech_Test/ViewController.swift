@@ -19,7 +19,6 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// Do any additional setup after loading the view, typically from a nib.
 		configureTableview()
 	}
 	private func configureTableview() {
@@ -69,12 +68,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 		cell.dateLabel.text = item.date
 		return cell
 	}
+	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 127.0
 	}
+	
 	func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 127.0
 	}
+	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		// call for details
 		let webHelper = WebHelper()
@@ -108,16 +110,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 		}
 		
 	}
-	func animateViewForLoading() {
-		
-	}
+
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "showDetail" {
 			guard let detailVC = segue.destination as? DetailViewController else { return}
 			if let sentItem = sender as? Item {
 				print(sentItem)
 			detailVC.item = sentItem
-				//self.navigationController?.pushViewController(detailVC, animated: true)
+				
 			}
 		}
 	}
